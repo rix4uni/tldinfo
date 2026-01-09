@@ -4,10 +4,10 @@ import json
 from multiprocessing import Pool, cpu_count
 
 # prints the version message
-version = "v0.0.2"
+version = "v0.0.3"
 
 # Initialize single TLDExtract instance at module level for reuse
-_extractor = tldextract.TLDExtract(cache_file=False)
+_extractor = tldextract.TLDExtract(cache_dir=None)
 
 def PrintVersion():
     print(f"Current tldinfo version {version}")
@@ -56,7 +56,7 @@ def _get_process_extractor():
     """Get or initialize process-local extractor for multiprocessing"""
     global _process_extractor
     if _process_extractor is None:
-        _process_extractor = tldextract.TLDExtract(cache_file=False)
+        _process_extractor = tldextract.TLDExtract(cache_dir=None)
     return _process_extractor
 
 def process_url_worker(args_tuple):
